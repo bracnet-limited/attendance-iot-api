@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Company;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CompanySeeder extends Seeder
 {
@@ -12,6 +13,14 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Company::create([
+            'name' => 'BRACNet',
+        ]);
+        Company::create([
+            'name' => 'Link3',
+        ]);
+        Company::create([
+            'name' => 'DOT Internet',
+        ]);
     }
 }

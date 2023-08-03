@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Device extends Model
+class CompanyDevice extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
@@ -17,8 +16,8 @@ class Device extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function company_device(): HasOne
+    public function device(): BelongsTo
     {
-        return $this->hasOne(CompanyDevice::class);
+        return $this->belongsTo(Device::class);
     }
 }

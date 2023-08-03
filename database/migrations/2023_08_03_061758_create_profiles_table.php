@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->foreignId('card_id')->constrained('cards')->nullable();
             $table->string('name');
+            $table->string('employee_pin');
             $table->string('email')->unique();
             $table->timestamps();
         });

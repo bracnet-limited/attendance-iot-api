@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->string('card_number');
-            $table->foreignId('company_id')->constrained('companies')->nullable();
+            $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
