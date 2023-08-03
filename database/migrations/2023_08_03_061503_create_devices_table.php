@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
+            $table->string('device_number');
+            $table->foreignId('company_id')->constrained('companies')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

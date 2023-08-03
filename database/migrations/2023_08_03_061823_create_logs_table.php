@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('action', 50);
+            $table->json('data');
             $table->timestamps();
         });
     }

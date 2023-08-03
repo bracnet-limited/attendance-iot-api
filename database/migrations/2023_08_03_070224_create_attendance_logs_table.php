@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cards', function (Blueprint $table) {
+        Schema::create('attendance_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('card_number');
-            $table->foreignId('company_id')->constrained('companies')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->foreignId('prifile_id')->constrained('profiles');
+            $table->string('action', 50);
+            $table->json('data');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('attendance_logs');
     }
 };
