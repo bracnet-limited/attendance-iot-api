@@ -106,4 +106,44 @@ class DeviceController extends Controller
         // $this->addLog(action: 'COMPANY_REMOVED_FROM_DEVICE', data: $device->toArray(), user: Auth::id());
         return response()->json(['data' => $device, 'success' => true, 'message' => 'Compnay removed from device successfully!!'], 201);
     }
+
+    public function enableDevice($number)
+    {
+        $device = Device::where('device_number', $number)->first();
+
+        if(!$device){
+            return response()->json(['success' => false, 'message' => 'Device not found!!']);
+        }
+
+        if($device->company_id == null){
+            return response()->json(['success' => false, 'message' => 'Device is not assigned yet!!']);
+        }
+
+        $device->update([
+            'status' => 1,
+        ]);
+
+        // $this->addLog(action: 'ENABLE_DEVICE', data: $device->toArray(), user: Auth::id());
+        return response()->json(['data' => $device, 'success' => true, 'message' => 'Device enabled successfully!!'], 201);
+    }
+
+    public function disableDevice($number)
+    {
+        $device = Device::where('device_number', $number)->first();
+
+        if(!$device){
+            return response()->json(['success' => false, 'message' => 'Device not found!!']);
+        }
+
+        if($device->company_id == null){
+            return response()->json(['success' => false, 'message' => 'Device is not assigned yet!!']);
+        }
+
+        $device->update([
+            'status' => 0,
+        ]);
+
+        // $this->addLog(action: 'DISABLE_DEVICE', data: $device->toArray(), user: Auth::id());
+        return response()->json(['data' => $device, 'success' => true, 'message' => 'Device disabled successfully!!'], 201);
+    }
 }

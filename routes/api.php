@@ -14,6 +14,8 @@ Route::get('/device/{number}', [DeviceController::class, 'getDevice'])->name('ge
 Route::post('/device/delete/{number}', [DeviceController::class, 'deleteDevice'])->name('deleteDevice');
 Route::post('/device/assign-company', [DeviceController::class, 'addCompanyToDevice'])->name('addCompanyToDevice');
 Route::post('/device/remove-company/{device_number}', [DeviceController::class, 'removeCompanyFromDevice'])->name('removeCompanyFromDevice');
+Route::post('/device/enable/{device_number}', [DeviceController::class, 'enableDevice'])->name('enableDevice');
+Route::post('/device/disable/{device_number}', [DeviceController::class, 'disableDevice'])->name('disableDevice');
 
 
 Route::post('/card-store/{number}', [CardController::class, 'store'])->name('storeCard');
