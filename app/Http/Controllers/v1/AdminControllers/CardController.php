@@ -50,6 +50,24 @@ class CardController extends Controller
         return $card;
     }
 
+    public function deleteCard($number)
+    {
+        $card = Card::where('card_number', $number)->first();
+
+        if(!$card){
+            return response()->json(['success' => false, 'message' => 'Card not found!!']);
+        }
+
+        if($card->company_id != null){
+            return response()->json(['success' => false, 'message' => 'Card is in use!!']);
+        }
+
+        $card->delete();
+
+        // $this->addLog(action: 'DELETE_CARD', data: $card->toArray(), user: Auth::id());
+        return response()->json(['data' => $card, 'success' => true, 'message' => 'Card deleted successfully!!'], 201);
+    }
+
     public function addCompanyToCard(Request $request)
     {
         $card = card::where('card_number', $request->card_number)->first();
@@ -68,5 +86,25 @@ class CardController extends Controller
 
         // $this->addLog(action: 'COMPANY_ASSIGN_TO_CARD', data: $card->toArray(), user: Auth::id());
         return response()->json(['data' => $card, 'success' => true, 'message' => 'Compnay assigned to card successfully!!'], 201);
+    }
+
+    public function removeCompanyFromCard($number)
+    {
+        $card = card::where('card_number', $number)->first();
+
+        if(!$card){
+            return response()->json(['success' => false, 'message' => 'Card not found!!']);
+        }
+
+        if($card->company_id == null){
+            return response()->json(['success' => false, 'message' => 'Card already not in use!!']);
+        }
+
+        $card->update([
+            'company_id' => null,
+        ]);
+
+        // $this->addLog(action: 'COMPANY_REMOVE_FROM_CARD', data: $card->toArray(), user: Auth::id());
+        return response()->json(['data' => $card, 'success' => true, 'message' => 'Compnay removed from card successfully!!'], 201);
     }
 }

@@ -49,6 +49,24 @@ class DeviceController extends Controller
         return $device;
     }
 
+    public function deleteDevice($number)
+    {
+        $device = Device::where('device_number', $number)->first();
+
+        if(!$device){
+            return response()->json(['success' => false, 'message' => 'Device not found!!']);
+        }
+
+        if($device->company_id != null){
+            return response()->json(['success' => false, 'message' => 'Device is in use!!']);
+        }
+
+        $device->delete();
+
+        // $this->addLog(action: 'DELETE_CARD', data: $card->toArray(), user: Auth::id());
+        return response()->json(['data' => $device, 'success' => true, 'message' => 'Device deleted successfully!!'], 201);
+    }
+
     public function addCompanyToDevice(Request $request)
     {
         $device = Device::where('device_number', $request->device_number)->first();
@@ -67,5 +85,25 @@ class DeviceController extends Controller
 
         // $this->addLog(action: 'COMPANY_ASSIGN_TO_DEVICE', data: $device->toArray(), user: Auth::id());
         return response()->json(['data' => $device, 'success' => true, 'message' => 'Compnay assigned to device successfully!!'], 201);
+    }
+
+    public function removeCompanyFromDevice($number)
+    {
+        $device = Device::where('device_number', $number)->first();
+
+        if(!$device){
+            return response()->json(['success' => false, 'message' => 'Device not found!!']);
+        }
+
+        if($device->company_id == null){
+            return response()->json(['success' => false, 'message' => 'Device already not in use!!']);
+        }
+
+        $device->update([
+            'company_id' => null,
+        ]);
+
+        // $this->addLog(action: 'COMPANY_REMOVED_FROM_DEVICE', data: $device->toArray(), user: Auth::id());
+        return response()->json(['data' => $device, 'success' => true, 'message' => 'Compnay removed from device successfully!!'], 201);
     }
 }
