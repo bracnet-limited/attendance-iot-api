@@ -27,4 +27,15 @@ class CardController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+    public function getAllCards()
+    {
+        $cards = Card::get();
+
+        if(count($cards) < 1){
+            return response()->json(['success' => false, 'message' => 'No card found!!']);
+        }
+
+        return $cards;
+    }
 }

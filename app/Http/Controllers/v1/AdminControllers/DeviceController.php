@@ -26,4 +26,15 @@ class DeviceController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+    public function getAllDevices()
+    {
+        $devices = Device::get();
+
+        if(count($devices) < 1){
+            return response()->json(['success' => false, 'message' => 'No device found!!']);
+        }
+
+        return $devices;
+    }
 }
