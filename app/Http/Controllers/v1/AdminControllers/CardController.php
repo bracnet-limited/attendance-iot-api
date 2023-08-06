@@ -38,4 +38,35 @@ class CardController extends Controller
 
         return $cards;
     }
+
+    public function getCard($number)
+    {
+        $card = Card::where('card_number', $number)->first();
+
+        if(!$card){
+            return response()->json(['success' => false, 'message' => 'Card not found!!']);
+        }
+
+        return $card;
+    }
+
+    public function addCompanyToCard(Request $request)
+    {
+        $card = card::where('card_number', $request->card_number)->first();
+
+        if(!$card){
+            return response()->json(['success' => false, 'message' => 'Card not found!!']);
+        }
+
+        if($card->company_id != null){
+            return response()->json(['success' => false, 'message' => 'Card already in use!!']);
+        }
+
+        $card->update([
+            'company_id' => $request->company_id,
+        ]);
+
+        // $this->addLog(action: 'COMPANY_ASSIGN_TO_CARD', data: $card->toArray(), user: Auth::id());
+        return response()->json(['data' => $card, 'success' => true, 'message' => 'Compnay assigned to card successfully!!'], 201);
+    }
 }

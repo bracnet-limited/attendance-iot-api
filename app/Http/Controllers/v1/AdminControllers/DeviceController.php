@@ -37,4 +37,35 @@ class DeviceController extends Controller
 
         return $devices;
     }
+
+    public function getDevice($number)
+    {
+        $device = Device::where('device_number', $number)->first();
+
+        if(!$device){
+            return response()->json(['success' => false, 'message' => 'Device not found!!']);
+        }
+
+        return $device;
+    }
+
+    public function addCompanyToDevice(Request $request)
+    {
+        $device = Device::where('device_number', $request->device_number)->first();
+
+        if(!$device){
+            return response()->json(['success' => false, 'message' => 'Device not found!!']);
+        }
+
+        if($device->company_id != null){
+            return response()->json(['success' => false, 'message' => 'Device already in use!!']);
+        }
+
+        $device->update([
+            'company_id' => $request->company_id,
+        ]);
+
+        // $this->addLog(action: 'COMPANY_ASSIGN_TO_DEVICE', data: $device->toArray(), user: Auth::id());
+        return response()->json(['data' => $device, 'success' => true, 'message' => 'Compnay assigned to device successfully!!'], 201);
+    }
 }

@@ -19,15 +19,15 @@ class DeviceSeeder extends Seeder
             'status' => 1,
         ]);
         Device::create([
-            'device_number' => 'd584894265164',
+            'device_number' => 'd584894265295',
             'company_id' => 2,
             'status' => 1,
         ]);
         Device::create([
-            'device_number' => 'd584894985164',
+            'device_number' => 'd584894985073',
         ]);
         Device::create([
-            'device_number' => 'd584894987864',
+            'device_number' => 'd584894987749',
             'company_id' => 1,
             'status' => 1,
         ]);

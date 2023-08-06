@@ -19,12 +19,12 @@ class CardSeeder extends Seeder
             'status' => 1,
         ]);
         Card::create([
-            'card_number' => 'c684894265164',
+            'card_number' => 'c684894265987',
             'company_id' => 2,
             'status' => 1,
         ]);
         Card::create([
-            'card_number' => 'c684894985164',
+            'card_number' => 'c684894985746',
         ]);
         Card::create([
             'card_number' => 'c684894987864',
