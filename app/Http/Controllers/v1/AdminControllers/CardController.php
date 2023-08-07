@@ -107,4 +107,44 @@ class CardController extends Controller
         // $this->addLog(action: 'COMPANY_REMOVE_FROM_CARD', data: $card->toArray(), user: Auth::id());
         return response()->json(['data' => $card, 'success' => true, 'message' => 'Compnay removed from card successfully!!'], 201);
     }
+
+    public function enableCard($number)
+    {
+        $card = Card::where('card_number', $number)->first();
+
+        if(!$card){
+            return response()->json(['success' => false, 'message' => 'Card not found!!']);
+        }
+
+        if($card->company_id == null){
+            return response()->json(['success' => false, 'message' => 'Card is not assigned yet!!']);
+        }
+
+        $card->update([
+            'status' => 1,
+        ]);
+
+        // $this->addLog(action: 'ENABLE_CARD', data: $card->toArray(), user: Auth::id());
+        return response()->json(['data' => $card, 'success' => true, 'message' => 'Card enabled successfully!!'], 201);
+    }
+
+    public function disableCard($number)
+    {
+        $card = Card::where('card_number', $number)->first();
+
+        if(!$card){
+            return response()->json(['success' => false, 'message' => 'Card not found!!']);
+        }
+
+        if($card->company_id == null){
+            return response()->json(['success' => false, 'message' => 'Card is not assigned yet!!']);
+        }
+
+        $card->update([
+            'status' => 0,
+        ]);
+
+        // $this->addLog(action: 'DISABLE_CARD', data: $card->toArray(), user: Auth::id());
+        return response()->json(['data' => $card, 'success' => true, 'message' => 'Card disabled successfully!!'], 201);
+    }
 }
