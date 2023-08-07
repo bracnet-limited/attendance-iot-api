@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendance_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('prifile_id')->constrained('profiles');
+            $table->foreignId('profile_id')->nullable()->constrained('profiles');
             $table->string('action', 50);
             $table->json('data');
             $table->timestamps();

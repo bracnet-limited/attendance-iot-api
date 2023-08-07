@@ -23,11 +23,11 @@ class Controller extends BaseController
         $log->save();
     }
 
-    public function addAttendanceLog(string $action, array $data = [], int $profile)
+    public function addAttendanceLog(string $action, array $data = [], int $profile_id)
     {
         $log = new AttendanceLog();
         $request = new Request();
-        $log->profile = $profile;
+        $log->profile_id = ($profile_id == 0) ? null : $profile_id;
         $log->action = $action;
         $log->data = json_encode(array_merge($data, ['IP' => $request->ip(), 'MAC' => exec('getmac')]));
         $log->save();
