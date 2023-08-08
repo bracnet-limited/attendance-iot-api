@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->tinyText('user_id', 10)->nullable();
             $table->string('action', 50);
             $table->json('data');
             $table->timestamps();

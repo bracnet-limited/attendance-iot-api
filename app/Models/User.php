@@ -52,8 +52,4 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class);
     }
 
-    public function logs(): HasMany
-    {
-        return $this->hasMany(Logs::class);
-    }
 }

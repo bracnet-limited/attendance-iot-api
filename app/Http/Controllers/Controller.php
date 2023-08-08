@@ -17,7 +17,8 @@ class Controller extends BaseController
     {
         $log = new Log();
         $request = new Request();
-        $log->user_id = $user ?? auth()->user()->id ?? 0;
+        $log->user_id = $user ?? auth()->user()->id ?? null;;
+        // $log->user_id = ($user != false) ? auth()->user()->id : null;
         $log->action = $action;
         $log->data = json_encode(array_merge($data, ['IP' => $request->ip(), 'MAC' => exec('getmac')]));
         $log->save();
