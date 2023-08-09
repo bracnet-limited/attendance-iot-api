@@ -11,7 +11,7 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/card-test/{d_number}/{c_number}', [AttendanceController::class, 'cardAttendanceValidity'])->name('cardAttendanceValidity');
 
-// Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/device-store/{device_number}', [DeviceController::class, 'store'])->name('storeDevice');
     Route::get('/devices', [DeviceController::class, 'getAllDevices'])->name('getAllDevices');
@@ -32,4 +32,4 @@ Route::post('/card-test/{d_number}/{c_number}', [AttendanceController::class, 'c
     Route::post('/card/enable/{card_number}', [CardController::class, 'enableCard'])->name('enableCard');
     Route::post('/card/disable/{card_number}', [CardController::class, 'disableCard'])->name('disableCard');
 
-// });
+});
