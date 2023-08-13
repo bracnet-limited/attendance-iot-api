@@ -9,7 +9,7 @@ use App\Http\Controllers\v1\ClientControllers\AttendanceController;
 
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
-Route::post('/card-test/{d_number}/{c_number}', [AttendanceController::class, 'cardAttendanceValidity'])->name('cardAttendanceValidity');
+Route::get('/card-test/{d_number}/{c_number}', [AttendanceController::class, 'cardAttendanceValidity'])->name('cardAttendanceValidity');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
