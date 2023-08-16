@@ -81,6 +81,7 @@ class DeviceController extends Controller
 
         $device->update([
             'company_id' => $request->company_id,
+            'status' => 1,
         ]);
 
         // $this->addLog(action: 'COMPANY_ASSIGN_TO_DEVICE', data: $device->toArray(), user: Auth::id());

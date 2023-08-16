@@ -22,13 +22,8 @@ class AttendanceController extends Controller
         if($device && $card && ($device->company_id == $card->company_id)){
             $profile = Profile::where('card_id', $card->id)->first();
             $this->addAttendanceLog(action: 'VALID_PUNCH', data: $card->toArray(), profile_id:$profile->id);
-            $data = [
-                'name' => $profile->name,
-                'employee_pin' => $profile->employee_pin
-            ];
 
             return $profile->name.'|'.$profile->employee_pin;
-            // return gettype($data);
         }
 
         $this->addAttendanceLog(action: 'INVALID_PUNCH', data: [$d_number, $c_number], profile_id:0);
